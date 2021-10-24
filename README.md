@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# React 实现 旅游网
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 遇到的问题
 
-## Available Scripts
+- 在使用 `Menu` 组件嵌套时，要注意 组件的 `Key` 值的唯一
 
-In the project directory, you can run:
+下面代码只有一级 Menu 组件的key 是唯一；二三级都会存在重复的
 
-### `yarn start`
+```tsx
+export const SideMenu: React.FC = () => {
+  return (
+    <Menu mode="vertical" className={styles['side-menu']}>
+      {sideMenuList.map((m, i) =>
+        <Menu.SubMenu
+          key={`side-menu-${i}`} title={m.title}>
+          {m.subMenu.map((sm, smindex) =>
+            <Menu.SubMenu
+              key={`sub-menu-${smindex}`} title={sm.title}>
+              {sm.subMenu.map((sms, smsIndex) =>
+                <Menu.Item key={`sub-sub-menu-${smsIndex}`} title={sms} />
+              )}
+            </Menu.SubMenu>
+          )}
+        </Menu.SubMenu>
+      )}
+    </Menu>
+  )
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+解决方法：
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+遇到 树形结构时，如果没有唯一 id，要注意key 的使用，可以借助父级的 key
 
-### `yarn test`
+1. menu：key = mIndex
+    1. subMenu：key = mIndex_smIndex
+        1. subSubMenu: key = mIndex_smIndex_smsIndex
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```tsx
+export const SideMenu: React.FC = () => {
+  return (
+    <Menu mode="vertical" className={styles['side-menu']}>
+      {sideMenuList.map((m, mIndex) =>
+        <Menu.SubMenu key={`side-menu-${mIndex}`} title={m.title} icon={<FireOutlined />}>
+          {m.subMenu.map((sm, smIndex) =>
+            <Menu.SubMenu key={`sub-menu-${mIndex}_${smIndex}`} title={sm.title} icon={<GifOutlined />}>
+              {sm.subMenu.map((sms, smsIndex) =>
+                <Menu.Item key={`sub-sub-menu-${mIndex}_${smIndex}_${smsIndex}`} title={sms} icon={<GiftFilled />} />
+              )}
+            </Menu.SubMenu>
+          )}
+        </Menu.SubMenu>
+      )}
+    </Menu>
+  )
+}
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
