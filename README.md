@@ -32,9 +32,12 @@ export const SideMenu: React.FC = () => {
 
 遇到 树形结构时，如果没有唯一 id，要注意key 的使用，可以借助父级的 key
 
-1. menu：key = mIndex
-    1. subMenu：key = mIndex_smIndex
-        1. subSubMenu: key = mIndex_smIndex_smsIndex
+1.一级 menu：key = mIndex
+    
+1.1 二级 subMenu：key = mIndex_smIndex
+
+1.1.1 三级 subSubMenu: key = mIndex_smIndex_smsIndex
+
 
 ```tsx
 export const SideMenu: React.FC = () => {
