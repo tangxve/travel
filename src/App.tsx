@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './App.module.css'
-import { Header, Footer, SideMenu, Carousel, ProductCollection } from './components'
+import { Header, Footer, SideMenu, Carousel, ProductCollection, BusinessPartners } from './components'
 import { Row, Col, Typography } from 'antd'
 import sideImage from './assets/images/sider_2019_12-09.png'
 import sideImage2 from './assets/images/sider_2019_02-04.png'
@@ -33,6 +33,7 @@ function App() {
           title={<Typography.Title level={3} type="success">国内推荐</Typography.Title>}
           sideImage={sideImage3}
           products={productList3} />
+        <BusinessPartners />
       </div>
       <Footer />
     </div>
