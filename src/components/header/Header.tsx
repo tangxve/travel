@@ -12,6 +12,8 @@ const menuItem = [
   '签证', '企业游', '高端游', '爱玩户外', '保险'
 ]
 
+console.log('Header')
+
 export const Header: React.FC = () => {
   return (
     <div className={styles['app-header']}>
