@@ -26,6 +26,17 @@ class HeaderComponent extends React.Component<RouteComponentProps, State> {
     }
   }
 
+  menuClickHandler = (e: any) => {
+    console.log(e)
+    this.setState({ language: e.key })
+    const action = {
+      type: 'change_language',
+      payload: e.key
+    }
+
+    store.dispatch(action)
+  }
+
   render() {
     const { history } = this.props
     return (
@@ -36,7 +47,7 @@ class HeaderComponent extends React.Component<RouteComponentProps, State> {
             <Typography.Text style={{ marginRight: 15 }}>让旅游更幸福</Typography.Text>
             <Dropdown
               overlay={
-                <Menu>
+                <Menu onClick={this.menuClickHandler}>
                   {this.state.languageList.map(l =>
                     <Menu.Item key={l.code}>{l.name}</Menu.Item>
                   )}
