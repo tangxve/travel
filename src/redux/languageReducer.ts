@@ -1,3 +1,5 @@
+import { ReducersMapObject } from 'redux'
+
 export interface LanguageState {
   language: 'en' | 'zh'
   languageList: Array<{ name: string, code: string }>
@@ -24,6 +26,15 @@ export default (state = defaultState, action: any) => {
   console.log(state, action)
   if (action.type === 'change_language') {
     const newState = { ...state, language: action.payload }
+
+    return newState
+  }
+
+  if (action.type === 'add_language') {
+    const newState = {
+      ...state,
+      languageList: [...state.languageList, action.payload]
+    }
 
     return newState
   }

@@ -6,6 +6,7 @@ import logo from '../../assets/logo.svg'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import store from '../../redux/store'
 import { LanguageState } from '../../redux/languageReducer'
+import { runInThisContext } from 'vm'
 
 const menuItem = [
   '旅游首页', '周末游', '跟团游',
@@ -24,17 +25,35 @@ class HeaderComponent extends React.Component<RouteComponentProps, State> {
       language: storeState.language,
       languageList: storeState.languageList
     }
+
+    store.subscribe(() => {
+      const storeState = store.getState()
+
+      this.setState({
+        language: storeState.language,
+        languageList: storeState.languageList
+      })
+    })
   }
 
   menuClickHandler = (e: any) => {
     console.log(e)
-    this.setState({ language: e.key })
-    const action = {
-      type: 'change_language',
-      payload: e.key
+    if (e.key === 'new') {
+      // 添加语言
+      const action = {
+        type: 'add_language',
+        payload: { code: 'new_lang', name: '新语言' }
+      }
+      store.dispatch(action)
     }
-
-    store.dispatch(action)
+    else {
+      // this.setState({ language: e.key })
+      const action = {
+        type: 'change_language',
+        payload: e.key
+      }
+      store.dispatch(action)
+    }
   }
 
   render() {
@@ -51,6 +70,7 @@ class HeaderComponent extends React.Component<RouteComponentProps, State> {
                   {this.state.languageList.map(l =>
                     <Menu.Item key={l.code}>{l.name}</Menu.Item>
                   )}
+                  <Menu.Item key={'new'}>添加语言</Menu.Item>
                 </Menu>
               }>
               <Button>
