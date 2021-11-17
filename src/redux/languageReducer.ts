@@ -1,4 +1,5 @@
 import { ReducersMapObject } from 'redux'
+import i18n from 'i18next'
 
 export interface LanguageState {
   language: 'en' | 'zh'
@@ -24,7 +25,10 @@ interface ChangeLanguageAction {
 // 通过 action 处理 state
 export default (state = defaultState, action: any) => {
   console.log(state, action)
+
   if (action.type === 'change_language') {
+    // 切换语言
+    i18n.changeLanguage(action.payload)
     const newState = { ...state, language: action.payload }
 
     return newState
