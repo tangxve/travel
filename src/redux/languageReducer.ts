@@ -28,7 +28,7 @@ export default (state = defaultState, action: any) => {
 
   if (action.type === 'change_language') {
     // 切换语言
-    i18n.changeLanguage(action.payload)
+    i18n.changeLanguage(action.payload) // 这样处理是不标准的，有副作用
     const newState = { ...state, language: action.payload }
 
     return newState

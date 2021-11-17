@@ -9,6 +9,7 @@ import { LanguageState } from '../../redux/languageReducer'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import zh from '../../i18n/zh.json'
 
+// @ts-ignore
 const menuItem = Object.keys(zh?.header?.nav)
                        .map(k => `header.nav.${k}`)
 

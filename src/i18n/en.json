@@ -1,23 +1,5 @@
 {
   "header": {
-    "nav": {
-      "home_page": "Home",
-      "weekend": "Weekend",
-      "group": "Group",
-      "backpack": "Backpack",
-      "private": "Private",
-      "cruise": "Cruise",
-      "hotel": "Hotel & Attractions",
-      "local": "Local",
-      "theme": "Theme",
-      "custom": "Custom",
-      "study": "Study",
-      "visa": "Visa",
-      "enterprise": "Enterprise",
-      "high_end": "High-end",
-      "outdoor": "Outdoor",
-      "insurance": "Insurance"
-    },
     "slogan": "Make travel happier",
     "add_new_language": "add new language",
     "title": "Listen to Baibai Travel",
