@@ -9,7 +9,7 @@ import { LanguageState } from '../../redux/language/languageReducer'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import zh from '../../i18n/zh.json'
 import { addLanguageActionCreator, changeLanguageActionCreator } from '../../redux/language/languageActions'
-
+import { connect } from 'react-redux'
 // @ts-ignore
 const menuItem = Object.keys(zh?.header?.nav)
                        .map(k => `header.nav.${k}`)
@@ -100,4 +100,4 @@ class HeaderComponent extends React.Component<RouteComponentProps & WithTranslat
 
 }
 
-export const Header = withTranslation()(withRouter(HeaderComponent))
+export const Header = connect()(withTranslation()(withRouter(HeaderComponent)))
