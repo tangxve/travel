@@ -1,5 +1,5 @@
-import { ReducersMapObject } from 'redux'
 import i18n from 'i18next'
+import { ADD_LANGUAGE, CHANGE_LANGUAGE, LanguageActionTypes } from './languageActions'
 
 export interface LanguageState {
   language: 'en' | 'zh'
@@ -14,7 +14,6 @@ const defaultState: LanguageState = {
   ]
 }
 
-export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
 
 interface ChangeLanguageAction {
   type: typeof CHANGE_LANGUAGE
@@ -23,10 +22,10 @@ interface ChangeLanguageAction {
 
 // 数据的处理系统
 // 通过 action 处理 state
-export default (state = defaultState, action: any) => {
+export default (state = defaultState, action: LanguageActionTypes) => {
   console.log(state, action)
 
-  if (action.type === 'change_language') {
+  if (action.type === CHANGE_LANGUAGE) {
     // 切换语言
     i18n.changeLanguage(action.payload) // 这样处理是不标准的，有副作用
     const newState = { ...state, language: action.payload }
@@ -34,7 +33,7 @@ export default (state = defaultState, action: any) => {
     return newState
   }
 
-  if (action.type === 'add_language') {
+  if (action.type === ADD_LANGUAGE) {
     const newState = {
       ...state,
       languageList: [...state.languageList, action.payload]
